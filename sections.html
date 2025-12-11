@@ -135,6 +135,8 @@
       min-width: 140px;
       text-align: left;
       box-shadow: var(--shadow-sm);
+      flex-shrink: 0; /* ← Prevents stretching in flex containers */
+      white-space: nowrap;
     }
 
     .dropdown-btn:hover,
@@ -236,62 +238,69 @@
     }
 
     @media (max-width: 768px) {
-      .nav-container {
-        flex-direction: row;
-        align-items: stretch;
-        gap: 0.75rem;
-        padding: 0.8rem 0.5rem;
-      }
+  .nav-container {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0.75rem 0.5rem;
+  }
 
-      .nav-logo,
-      .nav-back,
-      .dropdown {
-        width: 100%;
-        text-align: center;
-        justify-content: center;
-      }
+  .nav-logo,
+  .nav-back,
+  .dropdown {
+    flex: 1 1 auto;
+    text-align: center;
+    min-width: 120px;
+  }
 
-      .nav-back a,
-      .dropdown-btn {
-        width: 100%;
-        justify-content: center;
-      }
+  .dropdown-btn {
+    width: auto;
+    justify-content: center;
+    padding: 0.6rem 1rem;
+    font-size: 0.95rem;
+  }
 
-      .dropdown {
-        order: 3;
-      }
+  /* ✅ Keep dropdown *absolute* even on mobile — but anchor to right edge */
+  .dropdown-content {
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    left: auto;
+    width: calc(100vw - 40px); /* full screen minus margin */
+    max-width: 230px;
+    margin: 0 auto;
+    box-shadow: var(--shadow-lg);
+    border-radius: var(--radius-md);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition:
+      opacity 0.25s ease,
+      visibility 0.25s,
+      transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 101;
+    overflow: hidden;
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    background: white;
+  }
 
-      .dropdown-content {
-        position: relative;
-        top: 6px;
-        box-shadow: var(--shadow-md);
-        border-radius: var(--radius-md);
-        max-height: 0;
-        overflow: hidden;
-        opacity: 1;
-        visibility: visible;
-        transform: none;
-        transition: max-height 0.3s ease, padding 0.2s ease;
-      }
+  /* On open */
+  .dropdown-btn[aria-expanded="true"] + .dropdown-content {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
 
-      .dropdown-btn[aria-expanded="true"] + .dropdown-content {
-        max-height: 500px;
-        padding: 0.25rem 0;
-      }
-
-      .dropdown-content a {
-        justify-content: center;
-        padding: 0.75rem 1rem;
-        font-size: 0.95rem;
-      }
-
-      .dropdown-content i {
-        font-size: 0.9rem;
-      }
-      .dropdown-content {
-        display: block; /* ensure block flow */
-      }
-    }
+  /* Ensure no horizontal scroll & centered feel */
+  .nav-actions {
+    display: flex;
+    gap: 0.5rem;
+    width: 35%;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+}
 
     @media (max-width: 480px) {
       .dropdown-content {
@@ -656,12 +665,14 @@
   transform: scale(1);
 }
 
+
 .dropdown-btn[aria-expanded="true"] + .dropdown-content {
   max-height: 70vh; /* leave room for header/footer */
   padding: 0.25rem 0;
   overflow-y: auto;
   overscroll-behavior: contain; /* prevent body scroll pull */
 }
+
 
   </style>
 </head>
@@ -782,23 +793,11 @@ const sectionsData = {
   { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Bernadeth_C._Evarrete.webp", name: "Bernadeth C. Evarrete" },
   { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Cesario_Jr._R._Barquin.webp", name: "Cesario Jr. R. Barquin" },
   { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Chandlier_Justin_Gumba.webp", name: "Chandlier Justin Gumba" },
-  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Chinalyn_L._Abenoja.webp", name: "Chinalyn L. Abenoja" },
-  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Christine_Margarette_M._Capilitan.webp", name: "Christine Margarette M. Capilitan" },
-  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Crisanto_C._Davido.webp", name: "Crisanto C. Davido" },
-  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Cymon_Jade_O._Sombilon.webp", name: "Cymon Jade O. Sombilon" },
-  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Danica_Albiar.webp", name: "Danica Albiar" },
-  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Dexter_P._De_Jesus.webp", name: "Dexter P. De Jesus" },
-  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Edelyn_A._Remollo.webp", name: "Edelyn A. Remollo" },
-  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Erica_Lien_A._Austero.webp", name: "Erica Lien A. Austero" },
-  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Francine_Mae_O._Felizarta.webp", name: "Francine Mae O. Felizarta" },
-  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Francis_D._Tan.webp", name: "Francis D. Tan" },
-  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Frenz_Jay_O._Felizarta.webp", name: "Frenz Jay O. Felizarta" },
-  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Fritz_N._Dioso.webp", name: "Fritz N. Dioso" },
-  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Gecel_G._Robes.webp", name: "Gecel G. Robes" }
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Chinalyn_L._Abenoja.webp", name: "Chinalyn L. Abenoja" }
     ]
   },
   aquarius: {
-    title: "Aquarius Section",
+    title: "Aquarius",
     motto: "Innovative, Independent, Visionary",
     colorPrimary: "#4a90e2",
     colorPrimaryDark: "#8e14ad",
@@ -875,7 +874,224 @@ const sectionsData = {
       { img: "https://via.placeholder.com/180x180/e0e0e0/999999?text=AR19 ", name: "Aries Student 19" },
       { img: "https://via.placeholder.com/180x180/e0e0e0/999999?text=AR20 ", name: "Aries Student 20" }
     ]
-  }
+  },
+  leos: {
+    title: "Leos Section",
+    motto: "Courageous, Confident, Charismatic",
+    colorPrimary: "#d47a1c",
+    colorPrimaryDark: "#d47a1c",
+    students: [
+      { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/A-J_F._Lucapa.webp", name: "A-J F. Lucapa" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Angel_C._Rosquites.webp", name: "Angel C. Rosquites" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Angela_P._Montaño.webp", name: "Angela P. Montaño" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Angela_P._montano.webp", name: "Angela P. montano" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Angelou_R._Ledesma.webp", name: "Angelou R. Ledesma" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Ariel_D._Manaog.webp", name: "Ariel D. Manaog" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Bernadeth_C._Evarrete.webp", name: "Bernadeth C. Evarrete" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Cesario_Jr._R._Barquin.webp", name: "Cesario Jr. R. Barquin" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Chandlier_Justin_Gumba.webp", name: "Chandlier Justin Gumba" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Chinalyn_L._Abenoja.webp", name: "Chinalyn L. Abenoja" }
+    ]
+  },
+  leod: {
+    title: "Leod Section",
+    motto: "Courageous, Confident, Charismatic",
+    colorPrimary: "#d47a1c",
+    colorPrimaryDark: "#d47a1c",
+    students: [
+      { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/A-J_F._Lucapa.webp", name: "A-J F. Lucapa" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Angel_C._Rosquites.webp", name: "Angel C. Rosquites" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Angela_P._Montaño.webp", name: "Angela P. Montaño" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Angela_P._montano.webp", name: "Angela P. montano" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Angelou_R._Ledesma.webp", name: "Angelou R. Ledesma" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Ariel_D._Manaog.webp", name: "Ariel D. Manaog" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Bernadeth_C._Evarrete.webp", name: "Bernadeth C. Evarrete" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Cesario_Jr._R._Barquin.webp", name: "Cesario Jr. R. Barquin" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Chandlier_Justin_Gumba.webp", name: "Chandlier Justin Gumba" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Chinalyn_L._Abenoja.webp", name: "Chinalyn L. Abenoja" }
+    ]
+  },
+  leof: {
+    title: "Leof Section",
+    motto: "Courageous, Confident, Charismatic",
+    colorPrimary: "#d47a1c",
+    colorPrimaryDark: "#d47a1c",
+    students: [
+      { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/A-J_F._Lucapa.webp", name: "A-J F. Lucapa" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Angel_C._Rosquites.webp", name: "Angel C. Rosquites" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Angela_P._Montaño.webp", name: "Angela P. Montaño" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Angela_P._montano.webp", name: "Angela P. montano" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Angelou_R._Ledesma.webp", name: "Angelou R. Ledesma" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Ariel_D._Manaog.webp", name: "Ariel D. Manaog" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Bernadeth_C._Evarrete.webp", name: "Bernadeth C. Evarrete" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Cesario_Jr._R._Barquin.webp", name: "Cesario Jr. R. Barquin" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Chandlier_Justin_Gumba.webp", name: "Chandlier Justin Gumba" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Chinalyn_L._Abenoja.webp", name: "Chinalyn L. Abenoja" }
+    ]
+  },
+  leog: {
+    title: "Leog Section",
+    motto: "Courageous, Confident, Charismatic",
+    colorPrimary: "#d47a1c",
+    colorPrimaryDark: "#d47a1c",
+    students: [
+      { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/A-J_F._Lucapa.webp", name: "A-J F. Lucapa" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Angel_C._Rosquites.webp", name: "Angel C. Rosquites" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Angela_P._Montaño.webp", name: "Angela P. Montaño" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Angela_P._montano.webp", name: "Angela P. montano" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Angelou_R._Ledesma.webp", name: "Angelou R. Ledesma" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Ariel_D._Manaog.webp", name: "Ariel D. Manaog" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Bernadeth_C._Evarrete.webp", name: "Bernadeth C. Evarrete" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Cesario_Jr._R._Barquin.webp", name: "Cesario Jr. R. Barquin" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Chandlier_Justin_Gumba.webp", name: "Chandlier Justin Gumba" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Chinalyn_L._Abenoja.webp", name: "Chinalyn L. Abenoja" }
+    ]
+  },
+  leoh: {
+    title: "Leoh Section",
+    motto: "Courageous, Confident, Charismatic",
+    colorPrimary: "#d47a1c",
+    colorPrimaryDark: "#d47a1c",
+    students: [
+      { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/A-J_F._Lucapa.webp", name: "A-J F. Lucapa" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Angel_C._Rosquites.webp", name: "Angel C. Rosquites" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Angela_P._Montaño.webp", name: "Angela P. Montaño" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Angela_P._montano.webp", name: "Angela P. montano" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Angelou_R._Ledesma.webp", name: "Angelou R. Ledesma" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Ariel_D._Manaog.webp", name: "Ariel D. Manaog" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Bernadeth_C._Evarrete.webp", name: "Bernadeth C. Evarrete" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Cesario_Jr._R._Barquin.webp", name: "Cesario Jr. R. Barquin" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Chandlier_Justin_Gumba.webp", name: "Chandlier Justin Gumba" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Chinalyn_L._Abenoja.webp", name: "Chinalyn L. Abenoja" }
+    ]
+  },
+  leoj: {
+    title: "Leoj Section",
+    motto: "Courageous, Confident, Charismatic",
+    colorPrimary: "#d47a1c",
+    colorPrimaryDark: "#d47a1c",
+    students: [
+      { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/A-J_F._Lucapa.webp", name: "A-J F. Lucapa" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Angel_C._Rosquites.webp", name: "Angel C. Rosquites" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Angela_P._Montaño.webp", name: "Angela P. Montaño" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Angela_P._montano.webp", name: "Angela P. montano" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Angelou_R._Ledesma.webp", name: "Angelou R. Ledesma" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Ariel_D._Manaog.webp", name: "Ariel D. Manaog" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Bernadeth_C._Evarrete.webp", name: "Bernadeth C. Evarrete" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Cesario_Jr._R._Barquin.webp", name: "Cesario Jr. R. Barquin" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Chandlier_Justin_Gumba.webp", name: "Chandlier Justin Gumba" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Chinalyn_L._Abenoja.webp", name: "Chinalyn L. Abenoja" }
+    ]
+  },
+  leok: {
+    title: "Leok Section",
+    motto: "Courageous, Confident, Charismatic",
+    colorPrimary: "#d47a1c",
+    colorPrimaryDark: "#d47a1c",
+    students: [
+      { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/A-J_F._Lucapa.webp", name: "A-J F. Lucapa" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Angel_C._Rosquites.webp", name: "Angel C. Rosquites" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Angela_P._Montaño.webp", name: "Angela P. Montaño" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Angela_P._montano.webp", name: "Angela P. montano" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Angelou_R._Ledesma.webp", name: "Angelou R. Ledesma" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Ariel_D._Manaog.webp", name: "Ariel D. Manaog" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Bernadeth_C._Evarrete.webp", name: "Bernadeth C. Evarrete" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Cesario_Jr._R._Barquin.webp", name: "Cesario Jr. R. Barquin" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Chandlier_Justin_Gumba.webp", name: "Chandlier Justin Gumba" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Chinalyn_L._Abenoja.webp", name: "Chinalyn L. Abenoja" }
+    ]
+  },
+  leol: {
+    title: "Leol Section",
+    motto: "Courageous, Confident, Charismatic",
+    colorPrimary: "#d47a1c",
+    colorPrimaryDark: "#d47a1c",
+    students: [
+      { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/A-J_F._Lucapa.webp", name: "A-J F. Lucapa" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Angel_C._Rosquites.webp", name: "Angel C. Rosquites" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Angela_P._Montaño.webp", name: "Angela P. Montaño" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Angela_P._montano.webp", name: "Angela P. montano" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Angelou_R._Ledesma.webp", name: "Angelou R. Ledesma" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Ariel_D._Manaog.webp", name: "Ariel D. Manaog" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Bernadeth_C._Evarrete.webp", name: "Bernadeth C. Evarrete" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Cesario_Jr._R._Barquin.webp", name: "Cesario Jr. R. Barquin" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Chandlier_Justin_Gumba.webp", name: "Chandlier Justin Gumba" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Chinalyn_L._Abenoja.webp", name: "Chinalyn L. Abenoja" }
+    ]
+  },
+  leom: {
+    title: "Leom Section",
+    motto: "Courageous, Confident, Charismatic",
+    colorPrimary: "#d47a1c",
+    colorPrimaryDark: "#d47a1c",
+    students: [
+      { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/A-J_F._Lucapa.webp", name: "A-J F. Lucapa" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Angel_C._Rosquites.webp", name: "Angel C. Rosquites" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Angela_P._Montaño.webp", name: "Angela P. Montaño" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Angela_P._montano.webp", name: "Angela P. montano" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Angelou_R._Ledesma.webp", name: "Angelou R. Ledesma" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Ariel_D._Manaog.webp", name: "Ariel D. Manaog" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Bernadeth_C._Evarrete.webp", name: "Bernadeth C. Evarrete" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Cesario_Jr._R._Barquin.webp", name: "Cesario Jr. R. Barquin" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Chandlier_Justin_Gumba.webp", name: "Chandlier Justin Gumba" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Chinalyn_L._Abenoja.webp", name: "Chinalyn L. Abenoja" }
+    ]
+  },
+  leob: {
+    title: "Leob Section",
+    motto: "Courageous, Confident, Charismatic",
+    colorPrimary: "#d47a1c",
+    colorPrimaryDark: "#d47a1c",
+    students: [
+      { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/A-J_F._Lucapa.webp", name: "A-J F. Lucapa" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Angel_C._Rosquites.webp", name: "Angel C. Rosquites" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Angela_P._Montaño.webp", name: "Angela P. Montaño" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Angela_P._montano.webp", name: "Angela P. montano" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Angelou_R._Ledesma.webp", name: "Angelou R. Ledesma" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Ariel_D._Manaog.webp", name: "Ariel D. Manaog" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Bernadeth_C._Evarrete.webp", name: "Bernadeth C. Evarrete" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Cesario_Jr._R._Barquin.webp", name: "Cesario Jr. R. Barquin" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Chandlier_Justin_Gumba.webp", name: "Chandlier Justin Gumba" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Chinalyn_L._Abenoja.webp", name: "Chinalyn L. Abenoja" }
+    ]
+  },
+  leox: {
+    title: "Leox Section",
+    motto: "Courageous, Confident, Charismatic",
+    colorPrimary: "#d47a1c",
+    colorPrimaryDark: "#d47a1c",
+    students: [
+      { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/A-J_F._Lucapa.webp", name: "A-J F. Lucapa" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Angel_C._Rosquites.webp", name: "Angel C. Rosquites" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Angela_P._Montaño.webp", name: "Angela P. Montaño" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Angela_P._montano.webp", name: "Angela P. montano" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Angelou_R._Ledesma.webp", name: "Angelou R. Ledesma" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Ariel_D._Manaog.webp", name: "Ariel D. Manaog" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Bernadeth_C._Evarrete.webp", name: "Bernadeth C. Evarrete" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Cesario_Jr._R._Barquin.webp", name: "Cesario Jr. R. Barquin" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Chandlier_Justin_Gumba.webp", name: "Chandlier Justin Gumba" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Chinalyn_L._Abenoja.webp", name: "Chinalyn L. Abenoja" }
+    ]
+  },
+  leos: {
+    title: "Leos Section",
+    motto: "Courageous, Confident, Charismatic",
+    colorPrimary: "#d47a1c",
+    colorPrimaryDark: "#d47a1c",
+    students: [
+      { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/A-J_F._Lucapa.webp", name: "A-J F. Lucapa" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Angel_C._Rosquites.webp", name: "Angel C. Rosquites" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Angela_P._Montaño.webp", name: "Angela P. Montaño" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Angela_P._montano.webp", name: "Angela P. montano" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Angelou_R._Ledesma.webp", name: "Angelou R. Ledesma" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Ariel_D._Manaog.webp", name: "Ariel D. Manaog" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Bernadeth_C._Evarrete.webp", name: "Bernadeth C. Evarrete" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Cesario_Jr._R._Barquin.webp", name: "Cesario Jr. R. Barquin" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Chandlier_Justin_Gumba.webp", name: "Chandlier Justin Gumba" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Chinalyn_L._Abenoja.webp", name: "Chinalyn L. Abenoja" }
+    ]
+  },
+
 };
 
 // 🏆 Shared achievements (works across sections)
