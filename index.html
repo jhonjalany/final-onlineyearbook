@@ -178,6 +178,16 @@
         visibility 0.25s,
         transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       overflow: hidden;
+      max-height: 300px; /* Adjust as needed — ~6–8 items comfortably */
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      -webkit-overflow-scrolling: touch; /* for iOS/macOS momentum scroll */
+
+      /* Optional visual cue: subtle inset shadow for scroll hint */
+      box-shadow: 
+        0 8px 24px rgba(0,0,0,0.12),
+        inset 0 2px 4px rgba(0,0,0,0.03),
+        inset 0 -2px 4px rgba(0,0,0,0.03);
     }
 
     .dropdown-btn[aria-expanded="true"] + .dropdown-content {
@@ -249,6 +259,8 @@
       margin-left: auto;
     }
 
+   
+
     @media (max-width: 768px) {
       .hamburger-btn {
         display: block;
@@ -284,24 +296,49 @@
         align-items: center;
       }
       .dropdown-content {
-        position: static;
-        opacity: 1;
-        visibility: visible;
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.3s ease, padding 0.3s ease;
-        box-shadow: none;
-        border: none;
-        margin-top: 0.5rem;
+        position: absolute;
+        top: calc(100% + 6px);
+        left: 0;
+        right: 0;
+        background: white;
+        border-radius: var(--radius-md);
+        box-shadow: var(--shadow-lg);
+        z-index: 101;
+        backdrop-filter: blur(12px);
+        border: 1px solid var(--glass-border);
+        
+        /* Scrollable enhancements */
+        max-height: 40vh; /* or 200px if preferred */
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
+         opacity: 0;
+        visibility: hidden;
+        transform: translateY(-8px);
+        transition:
+          opacity 0.25s ease,
+          visibility 0.25s,
+          transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+        /* Optional: subtle inset shadow to hint scroll */
+        box-shadow:
+          0 8px 24px rgba(0,0,0,0.12),
+          inset 0 2px 4px rgba(0,0,0,0.03),
+          inset 0 -2px 4px rgba(0,0,0,0.03);
       }
       .dropdown-btn[aria-expanded="true"] + .dropdown-content {
-        max-height: 500px;
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
         padding: 0.5rem 0 0;
       }
       .dropdown-content a {
-        padding: 0.75rem 1rem;
+        padding: 1rem 1.25rem;
+        font-size: 1rem;
+        gap: 0.75rem;
+        /*padding: 0.75rem 1rem;
         border-radius: var(--radius-sm);
-        justify-content: center;
+        justify-content: center;*/
       }
       .nav-container {
         flex-wrap: nowrap;
@@ -1023,6 +1060,7 @@
 }
 
 
+
   </style>
 </head>
 <body>
@@ -1076,6 +1114,12 @@
           </a>
           <a href="sections.html?section=virgo" target="_blank" role="menuitem">
             <i class="fas fa-star"></i> Virgo
+          </a>
+          <a href="sections.html?section=virgo" target="_blank" role="menuitem">
+            <i class="fas fa-star"></i> Virgos
+          </a>
+          <a href="sections.html?section=virgo" target="_blank" role="menuitem">
+            <i class="fas fa-star"></i> Virgok
           </a>
         </div>
       </div>
@@ -1247,7 +1291,7 @@ const teachers = [
 // ✅ Change here Keys must exactly match student names used in "students" (whitespace/case-sensitive)
 const achievements = {
   "Aira B. Delon": ["Leadership Award", "Best in Filipino", "Peer Mentor of the Year", "Values Excellence"],
-  "Ashley A. Rinos": ["Math Olympiad Winner", "Art Excellence Award", "Most Creative Project", "Leadership Award", "Athlete of the Year", "Science Fair Finalist", "Debate Semi-Finalist", "Community Service Star", "Best in English"],
+  "Ashley A. Rinos": ["Math Olympiad Winner", "Most Creative Project", "Leadership Award", "Athlete of the Year", "Science Fair Finalist", "Debate Semi-Finalist", "Community Service Star", "Best in English"],
   "Allison Fate P. Dalugdugan": ["Best in English", "Leadership Award", "Science Fair Champion", "Research Awardee", "Quiz Bee Runner-up"],
   "Adrian D. Gallos": ["Athlete of the Year", "Community Service Award", "Sportsmanship Award", "Captain’s Award"],
   "Aaron P. Atienza": ["Most Improved Student", "Math Olympiad Winner", "STEM Advocate"],
@@ -1277,16 +1321,34 @@ const teacherAwards = {
 // ✅ Change here
 const speeches = [
   {
+    name: "Aira B. Delon",
+    status: "Class Valedictorian",
+    img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/aries/Aira_B._Delon.webp",
+    message: "Standing before you today is not just the culmination of years of hard work, but a testament to the power of unity..."
+  },
+  {
+    name: "jhon Reyes",
+    status: "bobo",
+    img: "https://via.placeholder.com/150",
+    message: "Fellow students, what a journey it has been! From early morning classes to late-night study sessions..."
+  },
+  {
+    name: "jushoa Reyes",
+    status: "Secretary",
+    img: "https://via.placeholder.com/150",
+    message: "Fellow students, what a journey it has been! From early morning classes to late-night study sessions..."
+  },
+  {
+    name: "Aira B. Delon",
+    status: "Class Valedictorian",
+    img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/aries/Aira_B._Delon.webp",
+    message: "Standing before you today is not just the culmination of years of hard work, but a testament to the power of unity..."
+  },
+  {
     name: "Dr. Maria Santos",
     status: "Principal",
     img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Frenz_Jay_O._Felizarta.webp",
     message: "To the graduating class of 2025, you have shown remarkable resilience and dedication throughout your journey at ANHS-SHTTo the graduating class of 2025, you have shown remarkable resilience and dedication throughout your journey at ANHS-SHTTo the graduating class of 2025, you have shown remarkable resilience and dedication throughout your journey at ANHS-SHTTo the graduating class of 2025, you have shown remarkable resilience and dedication throughout your journey at ANHS-SHTTo the graduating class of 2025, you have shown remarkable resilience and dedication throughout your journey at ANHS-SHTTo the graduating class of 2025, you have shown remarkable resilience and dedication throughout your journey at ANHS-SHTTo the graduating class of 2025, you have shown remarkable resilience and dedication throughout your journey at ANHS-SHTTo the graduating class of 2025, you have shown remarkable resilience and dedication throughout your journey at ANHS-SHTTo the graduating class of 2025, you have shown remarkable resilience and dedication throughout your journey at ANHS-SHTTo the graduating class of 2025, you have shown remarkable resilience and dedication throughout your journey at ANHS-SHT..."
-  },
-  {
-    name: "John Reyes",
-    status: "Student Council Secretary",
-    img: "https://via.placeholder.com/150",
-    message: "Fellow students, what a journey it has been! From early morning classes to late-night study sessions..."
   },
   {
     name: "Aira B. Delon",
@@ -1778,212 +1840,316 @@ function renderCombinedAchievements() {
     div.innerHTML = '<p style="text-align:center;color:#888;"><i class="fas fa-info-circle"></i> No achievements or awards recorded.</p>';
   }
 }
+
 function renderOverview() {
+  // ===== HELPERS =====
+  // ✅ Change here for featured speech
+  const getSpeechLabel = (status) => {
+    const s = (status || '').toLowerCase();
+    if (s.includes('principal')) return "Principal's Address";
+    if (s.includes('valedictorian')) return "Valedictorian Speech";
+    if (s.includes('secretary')) return "Secretary's Address";
+    if (s.includes('top')) return "Top Student's Address"; 
+    return "Speech";
+  };
+
+  const getAwardListForPerson = (name, isTeacher = false) => {
+    const awards = new Set();
+    if (isTeacher) {
+      if (teacherAwards[name]) teacherAwards[name].forEach(a => awards.add(a));
+    } else {
+      // Personal awards
+      const matchedKey = Object.keys(achievements).find(k => normalize(k) === normalize(name));
+      if (matchedKey) achievements[matchedKey].forEach(a => awards.add(a));
+      // Category awards
+      Object.entries(otherAwards).forEach(([award, recipients]) => {
+        if (recipients.some(r => normalize(r) === normalize(name))) {
+          awards.add(award);
+        }
+      });
+    }
+    return Array.from(awards);
+  };
+
+  const safeImg = (url, fallback = 'https://via.placeholder.com/180/e0e0e0/999999?text=No+Photo') => {
+    return url?.trim() ? url : fallback;
+  };
+
+  const createCard = (imgSrc, title, subtitle, onClick, isCircular = false) => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    const img = document.createElement('img');
+    img.src = imgSrc;
+    img.alt = title;
+    img.loading = 'lazy';
+    img.onerror = () => { img.src = safeImg(''); };
+    if (isCircular) {
+      img.style.borderRadius = '50%';
+      img.style.width = '100%';
+      img.style.height = '100%';
+      img.style.objectFit = 'cover';
+    }
+    card.appendChild(img);
+    const h4 = document.createElement('h4');
+    h4.innerHTML = `${title}<br><small>${subtitle}</small>`;
+    card.appendChild(h4);
+    card.addEventListener('click', onClick);
+    return card;
+  };
+
+  // ===== SCHOOL BANNER =====
   const bannerContainer = document.getElementById('overview-school-banner');
+  // ✅ Change here
   bannerContainer.innerHTML = `
     <div style="margin-bottom:2rem;border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-md);position:relative;">
-      <!-- ✅ Change here -->
       <img src="anhs-school.jpg"
            alt="Abuyog National High School"
            style="width:100%;height:auto;max-height:400px;object-fit:cover;display:block;"
            loading="lazy"
            onerror="this.src='https://via.placeholder.com/1200x400/e0e0e0/999999?text=School+Image+Unavailable'">
       <div style="position:absolute;bottom:0;left:0;width:100%;background:linear-gradient(transparent, rgba(0,0,0,0.75));padding:1rem;color:white;text-align:center;font-weight:700;font-size:1.1rem;">
-        <!-- ✅ Change here -->
         <i class="fas fa-school"></i> Abuyog National High School – Senior High
       </div>
     </div>
   `;
+
+  // ===== TOP STUDENTS CAROUSEL =====
   const ovStudents = document.getElementById('overview-students');
-  const studentCarousel = createResponsiveCarousel(
-    topStudents,
-    (student, idx) => {
-      const section = findSection(student.name);
-      const card = document.createElement('div');
-      card.className = 'card';
-      const safeImg = student.img?.trim() || 'https://via.placeholder.com/180/e0e0e0/999999?text=No+Photo';
-      card.innerHTML = `
-        <img src="${safeImg}" alt="${student.name}" loading="lazy"
-            onerror="this.src='https://via.placeholder.com/180/e0e0e0/999999?text=No+Photo'; this.style.display='block'">
-        <h4>${student.name}<br><small>${section.charAt(0).toUpperCase() + section.slice(1)}</small></h4>
-      `;
-      card.addEventListener('click', () => openStudentModal({ ...student, section }, section));
-      return card;
-    },
-    {
-      visibleCountFn: () => window.innerWidth < 480 ? 2 : (window.innerWidth < 768 ? 3 : 4),
-      snapToIndividual: true
-    }
-  );
   ovStudents.innerHTML = '';
-  ovStudents.appendChild(studentCarousel.element);
+  if (topStudents.length > 0) {
+    const studentCarousel = createResponsiveCarousel(
+      topStudents,
+      (student) => {
+        const section = findSection(student.name) || 'Unknown';
+        return createCard(
+          safeImg(student.img),
+          student.name,
+          section.charAt(0).toUpperCase() + section.slice(1),
+          () => openStudentModal({ ...student, section }, section)
+        );
+      },
+      {
+        visibleCountFn: () => Math.min(4, Math.max(2, Math.floor(window.innerWidth / 250))),
+        snapToIndividual: true
+      }
+    );
+    ovStudents.appendChild(studentCarousel.element);
+  } else {
+    ovStudents.innerHTML = '<p style="text-align:center;color:#888;">No top students listed.</p>';
+  }
+
+  // ===== TEACHERS CAROUSEL (Top 10) =====
   const ovTeachers = document.getElementById('overview-teachers');
-  const visibleTeachers = teachers.slice(0, 10);
-  const teacherCarousel = createResponsiveCarousel(
-    visibleTeachers,
-    (teacher, idx) => {
-      const card = document.createElement('div');
-      card.className = 'card';
-      const safeImg = teacher.img?.trim() || 'https://via.placeholder.com/180/e0e0e0/999999?text=No+Photo';
-      card.innerHTML = `
-        <img src="${safeImg}" alt="${teacher.name}" loading="lazy"
-            onerror="this.src='https://via.placeholder.com/180/e0e0e0/999999?text=No+Photo'; this.style.display='block'">
-        <h4>${teacher.name}<br><small>${teacher.section_name || 'Advisor'}</small></h4>
-      `;
-      card.addEventListener('click', () => openStudentModal(teacher, 'Teacher'));
-      return card;
-    },
-    {
-      visibleCountFn: () => window.innerWidth < 480 ? 1 : (window.innerWidth < 768 ? 3 : 4),
-      snapToIndividual: true
-    }
-  );
   ovTeachers.innerHTML = '';
-  ovTeachers.appendChild(teacherCarousel.element);
-  const topAchieverData = topStudents[0];
-  const sectionName = findSection(topAchieverData.name);
-  let topAchieverAwards = [];
-  const matchedKey = Object.keys(achievements).find(k => normalize(k) === normalize(topAchieverData.name));
-  if (matchedKey) topAchieverAwards = [...new Set(achievements[matchedKey])];
-  Object.entries(otherAwards).forEach(([award, rs]) => {
-    if (rs.some(r => normalize(r) === normalize(topAchieverData.name))) topAchieverAwards.push(award);
-  });
-  topAchieverAwards = [...new Set(topAchieverAwards)];
-  const topAchieverImg = topAchieverData.img?.trim() || 'https://via.placeholder.com/150/e0e0e0/999999?text=No+Photo';
-  const topAchieverCard = document.getElementById('top-achiever');
-  topAchieverCard.className = 'speech-card';
-  topAchieverCard.style.background = 'linear-gradient(135deg, #f8f9fa, #e9ecef)';
-  topAchieverCard.style.borderLeft = '4px solid var(--accent)';
-  topAchieverCard.innerHTML = `
-    <div style="display:flex;gap:1.25rem;align-items:center;flex-wrap:wrap;">
-      <div style="flex:0 0 100px;">
-        <img src="${topAchieverImg}" alt="${topAchieverData.name}" loading="lazy"
-            style="width:100px;height:100px;border-radius:50%;object-fit:cover;object-position:top;box-shadow:var(--shadow-md);">
-      </div>
-      <div style="text-align:left;flex:1;">
-        <h3 style="margin:0;color:var(--primary);display:flex;align-items:center;gap:0.5rem;">
-          <i class="fas fa-crown" style="color:gold;"></i> ${topAchieverData.name}
-        </h3>
-        <p style="margin:0.25rem 0;color:#666;font-size:0.95rem;">
-          ${sectionName.charAt(0).toUpperCase() + sectionName.slice(1)} • ${topAchieverAwards.length} Award${topAchieverAwards.length !== 1 ? 's' : ''}
-        </p>
-        <div style="margin-top:0.5rem;display:flex;flex-wrap:wrap;gap:0.3rem;max-height:3.5em;overflow:hidden;">
-          ${topAchieverAwards.slice(0,4).map(a => 
-            `<span style="background:#e3f2fd;color:#1976d2;padding:0.2rem 0.6rem;border-radius:20px;font-size:0.82rem;">${a}</span>`
-          ).join('')}
-          ${topAchieverAwards.length > 4 
-            ? `<span style="color:#666;font-size:0.85rem;">+${topAchieverAwards.length - 4} more</span>` 
-            : ''}
+  const visibleTeachers = teachers.slice(0, 10);
+  if (visibleTeachers.length > 0) {
+    const teacherCarousel = createResponsiveCarousel(
+      visibleTeachers,
+      (teacher) => {
+        return createCard(
+          safeImg(teacher.img),
+          teacher.name,
+          teacher.section_name || 'Advisor',
+          () => openStudentModal(teacher, 'Teacher')
+        );
+      },
+      {
+        visibleCountFn: () => Math.min(4, Math.max(1, Math.floor(window.innerWidth / 220))),
+        snapToIndividual: true
+      }
+    );
+    ovTeachers.appendChild(teacherCarousel.element);
+
+    // See All Teachers button
+    const seeAllBtn = document.createElement('div');
+    seeAllBtn.style.textAlign = 'center';
+    seeAllBtn.style.marginTop = '1rem';
+    seeAllBtn.innerHTML = `<button class="view-full-btn" onclick="showSection('teachers')">
+      <i class="fas fa-chalkboard-teacher"></i> See All Teachers
+    </button>`;
+    ovTeachers.appendChild(seeAllBtn);
+  } else {
+    ovTeachers.innerHTML = '<p style="text-align:center;color:#888;">No teachers listed.</p>';
+  }
+
+  // ===== TOP ACHIEVER CARD =====
+  const topAchieverDiv = document.getElementById('top-achiever');
+  topAchieverDiv.innerHTML = '';
+  if (topStudents.length > 0) {
+    const topStudent = topStudents[0];
+    const sectionName = findSection(topStudent.name) || 'Unknown';
+    const awards = getAwardListForPerson(topStudent.name);
+    const imgSrc = safeImg(topStudent.img);
+
+    const topCard = document.createElement('div');
+    topCard.className = 'speech-card';
+    topCard.style.background = 'linear-gradient(135deg, #f8f9fa, #e9ecef)';
+    topCard.style.borderLeft = '4px solid var(--accent)';
+
+    const badgeCount = awards.length > 4 ? `${awards.slice(0, 4).length} +${awards.length - 4}` : awards.length;
+    const badgeHtml = awards.slice(0, 4).map(a =>
+      `<span style="background:#e3f2fd;color:#1976d2;padding:0.2rem 0.6rem;border-radius:20px;font-size:0.82rem;">${a}</span>`
+    ).join('') + (awards.length > 4 ? `<span style="color:#666;font-size:0.85rem;">+${awards.length - 4} more</span>` : '');
+
+    topCard.innerHTML = `
+      <div style="display:flex;gap:1.25rem;align-items:center;flex-wrap:wrap;">
+        <div style="flex:0 0 100px;">
+          <img src="${imgSrc}" alt="${topStudent.name}" loading="lazy"
+              style="width:100px;height:100px;border-radius:50%;object-fit:cover;box-shadow:var(--shadow-md);">
         </div>
-        <button class="view-full-btn" style="margin-top:0.75rem;" id="topAchieverViewBtn">
-          <i class="fas fa-user-graduate"></i> View Full Profile
-        </button>
+        <div style="text-align:left;flex:1;">
+          <h3 style="margin:0;color:var(--primary);display:flex;align-items:center;gap:0.5rem;">
+            <i class="fas fa-crown" style="color:gold;"></i> ${topStudent.name}
+          </h3>
+          <p style="margin:0.25rem 0;color:#666;font-size:0.95rem;">
+            ${sectionName} • ${awards.length} Award${awards.length !== 1 ? 's' : ''}
+          </p>
+          <div style="margin-top:0.5rem;display:flex;flex-wrap:wrap;gap:0.3rem;max-height:3.5em;overflow:hidden;">
+            ${badgeHtml}
+          </div>
+          <button class="view-full-btn" style="margin-top:0.75rem;" id="topAchieverViewBtn">
+            <i class="fas fa-user-graduate"></i> View Full Profile
+          </button>
+        </div>
       </div>
-    </div>
-  `;
-  document.getElementById('topAchieverViewBtn').onclick = () => {
-    openStudentModal({ ...topAchieverData, section: sectionName }, sectionName);
-  };
+    `;
+    topAchieverDiv.appendChild(topCard);
+
+    topCard.querySelector('#topAchieverViewBtn').onclick = () =>
+      openStudentModal({ ...topStudent, section: sectionName }, sectionName);
+  } else {
+    topAchieverDiv.innerHTML = '<p style="text-align:center;color:#888;">No top achiever data available.</p>';
+  }
+
+  // ===== FEATURED SPEECHES (First 2 non-empty speeches) =====
   const featuredSpeechContainer = document.getElementById('featured-speech');
-  featuredSpeechContainer.innerHTML = `
-    <div id="speech-cards-container" style="display:flex;flex-wrap:wrap;gap:1.25rem;justify-content:center;"></div>
-  `;
-  const container = document.getElementById('speech-cards-container');
-  speeches.slice(0, 2).forEach((s, idx) => {
-    const card = document.createElement('div');
-    card.className = 'speech-card';
-    card.style.flex = '1 1 400px';
-    card.style.minWidth = '300px';
-    if (idx === 0) {
-      card.style.background = 'linear-gradient(135deg, #fff9f0, #fdf7e9)';
-      card.style.border = '1px solid #ffe0b2';
-    } else {
-      card.style.background = 'linear-gradient(135deg, #f0faff, #f5f9ff)';
-      card.style.border = '1px solid #bbdefb';
-    }
-    const borderColor = idx === 0 ? '#ffb300' : '#2196f3';
-    const label = idx === 0 ? "Principal's Address" : "Student Council Address";
-    card.innerHTML = `
-      <div style="display:flex;gap:1.25rem;align-items:center;margin-bottom:1rem;flex-wrap:wrap;">
-        <div style="flex:0 0 80px;">
-          <img src="${s.img}" alt="${s.name}" loading="lazy"
-              style="width:80px;height:80px;border-radius:50%;object-fit:cover;object-position:top;box-shadow:var(--shadow-md);border:3px solid #ffd54f;">
-        </div>
-        <div style="flex:1;text-align:left;">
-          <h3 style="margin:0;color:${idx === 0 ? '#e65100' : '#1565c0'};font-weight:800;">${s.name}</h3>
-          <p style="margin:0.25rem 0;color:#5d4037;font-weight:600;">${s.status}</p>
-          <div style="display:flex;gap:0.25rem;margin-top:0.3rem;">
-            <i class="fas fa-quote-left" style="color:${idx === 0 ? '#ffb300' : '#64b5f6'};font-size:0.9rem;"></i>
-            <span style="color:#9e9e9e;font-size:0.85rem;">${label}</span>
+  featuredSpeechContainer.innerHTML = '';
+
+  const validSpeeches = speeches.filter(s => s?.name && s?.message?.trim());
+  const featured = validSpeeches.slice(0, 2);
+
+  if (featured.length > 0) {
+    const cardsContainer = document.createElement('div');
+    cardsContainer.id = 'speech-cards-container';
+    cardsContainer.style.display = 'flex';
+    cardsContainer.style.flexWrap = 'wrap';
+    cardsContainer.style.gap = '1.25rem';
+    cardsContainer.style.justifyContent = 'center';
+
+    featured.forEach((s, idx) => {
+      const label = getSpeechLabel(s.status);
+      const isPrincipal = s.status?.toLowerCase().includes('principal');
+      const bg = isPrincipal
+        ? 'linear-gradient(135deg, #fff9f0, #fdf7e9)'
+        : 'linear-gradient(135deg, #f0faff, #f5f9ff)';
+      const borderColor = isPrincipal ? '#ffb300' : '#2196f3';
+      const textColor = isPrincipal ? '#e65100' : '#1565c0';
+      const quoteColor = isPrincipal ? '#ffb300' : '#64b5f6';
+
+      const card = document.createElement('div');
+      card.className = 'speech-card';
+      card.style.flex = '1 1 400px';
+      card.style.minWidth = '300px';
+      card.style.background = bg;
+      card.style.border = `1px solid ${isPrincipal ? '#ffe0b2' : '#bbdefb'}`;
+      card.style.borderRadius = 'var(--radius-md)';
+      card.style.padding = '1.25rem';
+
+      card.innerHTML = `
+        <div style="display:flex;gap:1.25rem;align-items:center;margin-bottom:1rem;flex-wrap:wrap;">
+          <div style="flex:0 0 80px;cursor:pointer;" onclick="openFullscreenModal('${safeImg(s.img)}', '${s.name}')">
+            <img src="${safeImg(s.img)}" alt="${s.name}" loading="lazy"
+                style="width:80px;height:80px;border-radius:50%;object-fit:cover;box-shadow:var(--shadow-md);border:3px solid ${quoteColor};">
+          </div>
+          <div style="flex:1;text-align:left;">
+            <h3 style="margin:0;color:${textColor};font-weight:800;">${s.name}</h3>
+            <p style="margin:0.25rem 0;color:#5d4037;font-weight:600;">${s.status || '—'}</p>
+            <div style="display:flex;gap:0.25rem;margin-top:0.3rem;align-items:center;">
+              <i class="fas fa-quote-left" style="color:${quoteColor};font-size:0.9rem;"></i>
+              <span style="color:#9e9e9e;font-size:0.85rem;">${label}</span>
+            </div>
           </div>
         </div>
-      </div>
-      <p style="font-style:italic;line-height:1.7;color:#424242;border-left:3px solid ${borderColor};padding-left:1rem;margin:0.5rem 0;">
-        “${s.message.substring(0, 150)}${s.message.length > 150 ? '…' : ''}”
-      </p>
-      <button class="view-full-btn" style="margin-top:0.75rem;width:100%;"
-              onclick="showSection('speeches'); setTimeout(() => document.getElementById('speeches').scrollIntoView({behavior:'smooth'}), 100);">
-        <i class="fas fa-comments"></i> Read Full Speech
-      </button>
-    `;
-    container.appendChild(card);
-  });
+        <p style="font-style:italic;line-height:1.7;color:#424242;border-left:3px solid ${borderColor};padding-left:1rem;margin:0.5rem 0;">
+          “${s.message.substring(0, 150)}${s.message.length > 150 ? '…' : ''}”
+        </p>
+        <button class="view-full-btn" style="margin-top:0.75rem;width:100%;"
+                onclick="showSection('speeches'); setTimeout(() => document.getElementById('speeches').scrollIntoView({behavior:'smooth'}), 100);">
+          <i class="fas fa-comments"></i> Read Full Speech
+        </button>
+      `;
+      cardsContainer.appendChild(card);
+    });
+    featuredSpeechContainer.appendChild(cardsContainer);
+  } else {
+    featuredSpeechContainer.innerHTML = '<p style="text-align:center;color:#888;">No speeches available.</p>';
+  }
+
+  // ===== MEMORIES CAROUSEL (First 10) =====
   const ovMem = document.getElementById('overview-memories');
-  const memToShow = memories.slice(0, 10);
-  const memoryCarousel = createResponsiveCarousel(
-    memToShow,
-    (url, idx) => {
-      const card = document.createElement('div');
-      card.className = 'memory-card';
-      const img = document.createElement('img');
-      img.src = url;
-      img.alt = `Memory ${idx + 1}`;
-      img.loading = 'lazy';
-      img.onerror = () => {
-        img.src = 'https://via.placeholder.com/400x300/e0e0e0/999999?text=Memory';
-        img.style.display = 'block';
-      };
-      card.appendChild(img);
-      card.addEventListener('click', () => openFullscreenModal(url, 'Memory'));
-      return card;
-    },
-    {
-      visibleCountFn: () => window.innerWidth < 480 ? 1 : (window.innerWidth < 768 ? 2 : 3),
-      snapToIndividual: true
-    }
-  );
   ovMem.innerHTML = '';
-  ovMem.appendChild(memoryCarousel.element);
-  const teacherSeeMore = document.createElement('div');
-  teacherSeeMore.style.textAlign = 'center';
-  teacherSeeMore.style.marginTop = '1rem';
-  teacherSeeMore.innerHTML = `<button class="view-full-btn" onclick="showSection('teachers')"><i class="fas fa-chalkboard-teacher"></i> See All Teachers</button>`;
-  ovTeachers.appendChild(teacherSeeMore);
-  const memorySeeMore = document.createElement('div');
-  memorySeeMore.style.textAlign = 'center';
-  memorySeeMore.style.marginTop = '1rem';
-  memorySeeMore.innerHTML = `<button class="view-full-btn" onclick="showSection('memories')"><i class="fas fa-images"></i> See All Memories</button>`;
-  ovMem.appendChild(memorySeeMore);
+  const memToShow = memories.filter(Boolean).slice(0, 10);
+  if (memToShow.length > 0) {
+    const memoryCarousel = createResponsiveCarousel(
+      memToShow,
+      (url) => {
+        const card = document.createElement('div');
+        card.className = 'memory-card';
+        const img = document.createElement('img');
+        img.src = url;
+        img.alt = 'Memory';
+        img.loading = 'lazy';
+        img.onerror = () => {
+          img.src = 'https://via.placeholder.com/400x300/e0e0e0/999999?text=Memory';
+        };
+        card.appendChild(img);
+        card.addEventListener('click', () => openFullscreenModal(url, 'Memory'));
+        return card;
+      },
+      {
+        visibleCountFn: () => Math.min(3, Math.max(1, Math.floor(window.innerWidth / 300))),
+        snapToIndividual: true
+      }
+    );
+    ovMem.appendChild(memoryCarousel.element);
+
+    // See All Memories button
+    const seeAllMemBtn = document.createElement('div');
+    seeAllMemBtn.style.textAlign = 'center';
+    seeAllMemBtn.style.marginTop = '1rem';
+    seeAllMemBtn.innerHTML = `<button class="view-full-btn" onclick="showSection('memories')">
+      <i class="fas fa-images"></i> See All Memories
+    </button>`;
+    ovMem.appendChild(seeAllMemBtn);
+  } else {
+    ovMem.innerHTML = '<p style="text-align:center;color:#888;">No memories uploaded.</p>';
+  }
+
+  // ===== SECTION LINKS =====
   const sectionLinks = document.createElement('div');
   sectionLinks.style.margin = '1.5rem 0';
   sectionLinks.style.textAlign = 'center';
-  sectionLinks.innerHTML = `
-    <h4 style="color: var(--primary); margin-bottom: 0.75rem;">📚 Browse All Sections</h4>
-    <div style="display:flex;flex-wrap:wrap;gap:0.5rem;justify-content:center;">
-      ${Object.keys(students).map(sec => `
-        <!-- ✅ Change here -->
-        <a href="sections.html?section=${sec}" target="_blank"
-           style="padding:0.4rem 0.8rem;background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:20px;text-decoration:none;color:var(--primary-dark);font-weight:600;transition:var(--transition);"
-           onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='var(--shadow-sm)'"
-           onmouseout="this.style.transform=''; this.style.boxShadow=''"
-        >
-          ${sec.charAt(0).toUpperCase() + sec.slice(1)}
-        </a>
-      `).join('')}
-    </div>
-  `;
-  ovStudents.appendChild(sectionLinks);
+
+  const sections = Object.keys(students).filter(s => students[s]?.length > 0);
+  if (sections.length > 0) {
+    sectionLinks.innerHTML = `
+      <h4 style="color: var(--primary); margin-bottom: 0.75rem;">📚 Browse All Sections</h4>
+      <div style="display:flex;flex-wrap:wrap;gap:0.5rem;justify-content:center;">
+        ${sections.map(sec => `
+          <a href="sections.html?section=${sec}" target="_blank"
+             style="padding:0.4rem 0.8rem;background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:20px;text-decoration:none;color:var(--primary-dark);font-weight:600;transition:var(--transition);"
+             onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='var(--shadow-sm)'"
+             onmouseout="this.style.transform=''; this.style.boxShadow=''"
+          >
+            ${sec.charAt(0).toUpperCase() + sec.slice(1)}
+          </a>
+        `).join('')}
+      </div>
+    `;
+    ovStudents.appendChild(sectionLinks);
+  }
 }
+
 function renderTeachers() {
   const div = document.getElementById('all-teachers');
   div.innerHTML = '';
@@ -2008,6 +2174,12 @@ function renderSpeeches() {
     { bg: 'linear-gradient(135deg, #f0faff, #f5f9ff)', border: '#bbdefb', text: '#1565c0', quote: '#64b5f6' },
     { bg: 'linear-gradient(135deg, #f0faff, #f5f9ff)', border: '#bbdefb', text: '#1565c0', quote: '#64b5f6' },
     { bg: 'linear-gradient(135deg, #f0faff, #f5f9ff)', border: '#bbdefb', text: '#1565c0', quote: '#64b5f6' },
+    { bg: 'linear-gradient(135deg, #f0faff, #f5f9ff)', border: '#bbdefb', text: '#1565c0', quote: '#64b5f6' },
+    { bg: 'linear-gradient(135deg, #f0faff, #f5f9ff)', border: '#bbdefb', text: '#1565c0', quote: '#64b5f6' },
+    { bg: 'linear-gradient(135deg, #f0faff, #f5f9ff)', border: '#bbdefb', text: '#1565c0', quote: '#64b5f6' },
+    { bg: 'linear-gradient(135deg, #f0faff, #f5f9ff)', border: '#bbdefb', text: '#1565c0', quote: '#64b5f6' },
+    { bg: 'linear-gradient(135deg, #f0faff, #f5f9ff)', border: '#bbdefb', text: '#1565c0', quote: '#64b5f6' },
+    { bg: 'linear-gradient(135deg, #f0faff, #f5f9ff)', border: '#bbdefb', text: '#1565c0', quote: '#64b5f6' },
     { bg: 'linear-gradient(135deg, #f0faff, #f5f9ff)', border: '#bbdefb', text: '#1565c0', quote: '#64b5f6' }
   ];
   speeches.forEach((s, idx) => {
@@ -2021,9 +2193,12 @@ function renderSpeeches() {
     card.style.boxShadow = 'var(--shadow-sm)';
     card.style.transition = 'var(--transition)';
     let label = "Speech";
+    // ✅ Change here for speech section
     if (s.status.includes('Principal')) label = "Principal's Address";
-    else if (s.status.includes('Valedictorian')) label = "Valedictorian Speech";
-    else if (s.status.includes('Secretary')) label = "Student Council Address";
+    else if (s.status.includes('Valedictorian')) label = "Valedictorian Speeches";
+    else if (s.status.includes('Secretary')) label = "Secretary's Address";
+    else if (s.status.includes('Top')) label = "Tops Student's Address";
+    //---------------------------------------------------
     const avatarWrapper = document.createElement('div');
     avatarWrapper.style.flex = '0 0 90px';
     avatarWrapper.style.cursor = 'pointer';
@@ -2271,6 +2446,51 @@ shareNativeBtn.addEventListener('click', async () => {
     }
   }
 });
+
+//-----------------------------------------------------------------------------------------------------
+// 🔒 Disable right-click (context menu)
+document.addEventListener('contextmenu', (e) => {
+  e.preventDefault();
+  return false;
+});
+
+// 🔒 Disable key combinations for copying, viewing source, DevTools, etc.
+document.addEventListener('keydown', (e) => {
+  // Prevent Ctrl+C / Cmd+C (copy)
+  if ((e.ctrlKey || e.metaKey) && e.key === 'c') {
+    e.preventDefault();
+    return false;
+  }
+
+  // Prevent Ctrl+U (view source) — works in some browsers
+  if ((e.ctrlKey || e.metaKey) && e.key === 'u') {
+    e.preventDefault();
+    return false;
+  }
+
+  // Prevent Ctrl+Shift+I / F12 / Ctrl+Shift+J (DevTools)
+  if (
+    e.key === 'F12' ||
+    ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'I' || e.key === 'J')) ||
+    ((e.ctrlKey || e.metaKey) && e.key === 'U') // redundant but reinforced
+  ) {
+    e.preventDefault();
+    return false;
+  }
+
+  // Prevent Ctrl+Shift+C (DevTools element picker — common in Chrome)
+  if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'C') {
+    e.preventDefault();
+    return false;
+  }
+
+  // Optional: Prevent Ctrl+A (select all)
+  // if ((e.ctrlKey || e.metaKey) && e.key === 'a') {
+  //   e.preventDefault();
+  //   return false;
+  // }
+});
+
 </script>
 </body>
 </html>
