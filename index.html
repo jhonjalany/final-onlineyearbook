@@ -39,25 +39,124 @@
       color: #333;
       min-height: 100vh;
     }
-    header {
-      background: linear-gradient(120deg, var(--primary), var(--secondary));
-      color: white;
-      padding: 1.5rem 2rem;
-      text-align: center;
-      box-shadow: var(--shadow-sm);
-      position: relative;
-      overflow: hidden;
-    }
-    header::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-      transform: rotate(30deg);
-    }
+    
+    /* ===== Enhanced Header Styles ===== */
+header {
+  background: linear-gradient(135deg, #2c3e92, #4a65d2, #6a8dfc);
+  color: white;
+  padding: 1.2rem 1.5rem;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.header-content {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.commencement-title {
+  font-size: clamp(1rem, 6vw, 2.8rem);
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  margin: 0;
+  line-height: 1.1;
+}
+
+.commencement-title sup {
+  font-size: 0.6em;
+  vertical-align: super;
+  margin-left: 0.2rem;
+  color: var(--accent);
+}
+
+.school-year {
+  font-size: clamp(0.6rem, 4vw, 1.8rem);
+  font-weight: 700;
+  margin: 0.5rem 0;
+  letter-spacing: 2px;
+  color: #bbdefb;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.theme-container {
+  margin-top: 1rem;
+}
+
+.theme-label {
+  display: block;
+  font-size: clamp(0.7rem, 2.5vw, 1.1rem);
+  opacity: 0.9;
+  letter-spacing: 1px;
+}
+
+.theme {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: clamp(0.5rem, 4.5vw, 1.9rem);
+  font-weight: 800;
+  margin: 0.5rem 0 0;
+  line-height: 1.35;
+  color: white;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.4);
+  background: rgba(0,0,0,0.2);
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--radius-md);
+  display: inline-block;
+  backdrop-filter: blur(4px);
+}
+
+/* Decorative elements */
+.header-decor {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: linear-gradient(90deg, transparent, var(--accent), #ffd54f, var(--accent), transparent);
+  z-index: 3;
+}
+
+/* Optional: subtle stars/grad caps floating */
+header::before {
+  content: "";
+  position: absolute;
+  top: 20%;
+  left: 10%;
+  width: 30px;
+  height: 30px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%2355efc4' d='M5,13.18v4L12,21l7-3.82v-4L12,17l-7-3.82M12,3L1,9l11,6l3.5-1.91L12,15l-7-3.82L12,3Z'/%3E%3C/svg%3E");
+  background-size: contain;
+  opacity: 0.6;
+  animation: float 8s ease-in-out infinite;
+}
+
+header::after {
+  content: "";
+  position: absolute;
+  top: 60%;
+  right: 15%;
+  width: 24px;
+  height: 24px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23ffd54f' d='M12,17.27L18.18,21l-1.64-7.03L22,9.24l-7.19-.61L12,2L9.19,8.63L2,9.24l5.46,4.73L5.82,21z'/%3E%3C/svg%3E");
+  background-size: contain;
+  opacity: 0.5;
+  animation: float 10s ease-in-out infinite reverse;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-16px) rotate(10deg); }
+}
+
     header h1 {
       font-size: clamp(1.8rem, 5vw, 2.4rem);
       font-weight: 800;
@@ -81,7 +180,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      max-width: 1200px;
+      max-width: 1500px;
       margin: 0 auto;
       padding: 0.8rem 1.25rem;
     }
@@ -262,7 +361,65 @@
       margin-left: auto;
     }
 
-   
+   .oath-card {
+  background: white;
+  border-radius: var(--radius-md);
+  padding: clamp(1.25rem, 4vw, 1.75rem);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+.oath-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-3px);
+}
+.oath-header {
+  text-align: center;
+  margin-bottom: 1.25rem;
+}
+.oath-header h3 {
+  color: var(--primary);
+  font-weight: 800;
+  font-size: clamp(1.15rem, 3.2vw, 1.4rem);
+  margin: 0;
+}
+.oath-divider {
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(to right, var(--accent), var(--primary));
+  margin: 0.5rem auto;
+  border-radius: 2px;
+}
+.oath-content {
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
+  font-size: clamp(0.5rem, 3.2vw, 1.2rem);
+  line-height: 1.65;
+  color: #2d3748;
+  text-align: justify;
+  margin: 0;
+  padding: 0 0.5rem;
+}
+.oath-content strong {
+  font-weight: 900;
+  color: var(--primary);
+  display: block;
+  margin-top: 0.75rem;
+  font-style: italic;
+}
+/* Optional decorative background */
+.oath-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 80px;
+  height: 80px;
+  background: url("image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%234a69bd22' d='M12,2L1,9L12,16L23,9L12,2Z'/%3E%3C/svg%3E");
+  background-size: contain;
+  opacity: 0.2;
+  pointer-events: none;
+}
 
     @media (max-width: 768px) {
       .hamburger-btn {
@@ -346,6 +503,7 @@
       .nav-container {
         flex-wrap: nowrap;
       }
+      
     }
 
     /* ===== REST OF STYLES (UNCHANGED) ===== */
@@ -399,7 +557,7 @@
     }
     .card img {
       width: 100%;
-      height: 210px;
+      height: 300px;
       object-fit: contain;
       object-position: top;
       display: block;
@@ -504,7 +662,7 @@
     }
     #song .song-title {
       font-family: 'Georgia', 'Times New Roman', serif;
-      font-size: clamp(2rem, 6vw, 3rem);
+      font-size: clamp(0.5rem, 6vw, 3rem);
       font-weight: 900;
       color: var(--primary);
       margin: 0;
@@ -535,14 +693,14 @@
       text-align: center;
       position: relative;
       z-index: 1;
-      padding: 0 1rem;
+      padding: 0 0.1rem;
       max-width: 800px;
       margin: 0 auto;
     }
     #song .lyrics::before,
     #song .lyrics::after {
       content: '“';
-      display: block;
+      display: none;
       font-size: clamp(3rem, 8vw, 5rem);
       color: rgba(74, 105, 189, 0.08);
       line-height: 1;
@@ -754,6 +912,11 @@
       .grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
       main { margin: 1rem auto; }
       h2 { margin-bottom: 1rem; }
+
+      .card img {
+      height: 210px;
+      }
+
     }
     @media (max-width: 480px) {
       .nav-links { gap: 0.5rem; }
@@ -1062,15 +1225,40 @@
   transform: scale(1);
 }
 
+.message {
+  font-size: 0.6rem; /* default / mobile */
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+  .message {
+    font-size: 0.8rem;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .message {
+    font-size: 1rem;
+  }
+}
+
 
 
   </style>
 </head>
 <body>
 <header>
-  <!-- ✅ Change here -->
-  <h1>ANHS-SH Graduating Class of 2025</h1>
-  <p>Forever Grateful, Forever Proud</p>
+  <div class="header-content">
+    <!-- ✅ Change here -->
+    <h1 class="commencement-title">8<sup>th</sup> COMMENCEMENT EXERCISES</h1>
+    <div class="school-year">2024–2025</div>
+    <div class="theme-container">
+      <span class="theme-label">Theme:</span>
+      <h2 class="theme">“Generation of Unity: Partners for the New Philippines”</h2>
+    </div>
+  </div>
+  <div class="header-decor"></div>
 </header>
 <nav>
   <div class="nav-container">
@@ -1130,6 +1318,7 @@
       <a href="#" onclick="showSection('achievement')">Achievements</a>
       <a href="#" onclick="showSection('teachers')">Teachers</a>
       <a href="#" onclick="showSection('speeches')">Speeches</a>
+      <a href="#" onclick="showSection('oath')">Oath & Pledge</a>
       <a href="#" onclick="showSection('memories')">Memories</a>
       <a href="#" onclick="showSection('song')">Graduation Song</a>
     </div>
@@ -1175,7 +1364,8 @@
              onerror="this.style.display='none'">
       </div>
       <div class="song-header">
-        <h1 class="song-title">We Are</h1>
+        <!-- ✅ Change here -->
+        <h1 class="song-title">A NEW BEGINNING, ACROSS ALL TIME</h1>
         <!-- ✅ Change here -->
         <p class="song-subtitle">Official Graduation Song — Class of 2025</p>
       </div>
@@ -1186,6 +1376,42 @@
       <div class="song-footer">
         — Composed with love for the ANHS-SH Graduating Class of 2025
       </div>
+    </div>
+  </section>
+  <section id="oath" class="section">
+    <h2>📜 Oath & Pledge</h2>
+
+    <!-- Alumni Oath -->
+    <div class="oath-card">
+      <div class="oath-header">
+        <!-- ✅ Change here -->
+        <h3><i class="fas fa-hand-paper"></i> ANHS Alumni Oath</h3>
+        <div class="oath-divider"></div>
+      </div>
+      <!-- ✅ Change here -->
+      <blockquote class="oath-content">
+        We, the 2025 Graduates of Abuyog National High School being solemnly sworn – in today, as members of the Abuyog National High School Alumni Association, do solemnly, earnestly, and sincerely swear, that we will do our best, to fulfill our duties and obligations, to uphold its ideas and to promote its objective and to exercise all our responsibilities, without mental reservations or purpose of evasion.<br><br>
+        <strong>So help me God!!!</strong>
+      </blockquote>
+    </div>
+
+    <!-- Pledge of Loyalty -->
+    <div class="oath-card" style="margin-top: 2rem;">
+      <div class="oath-header">
+        <!-- ✅ Change here -->
+        <h3><i class="fas fa-heart"></i> Pledge of Loyalty</h3>
+        <div class="oath-divider"></div>
+      </div>
+      <!-- ✅ Change here -->
+      <blockquote class="oath-content">
+        Dear Alma Mater, we are fully aware that upon leaving your portals, we are to face the different challenges that threaten the destruction of mankind. We do hereby, pledge that whatever field of specialization each of us has opted, we will strive to become desirable, useful, responsible and versatile citizens of the country, a working entity to work for a cause to achieve a better Philippines. A herculean task of nation building it may be, Juan Edgardo M. Angara, we commit to join forces for its success.<br><br>
+
+        Intellectual we are, we are sure to practice the good values you have painstakingly inculcated in us: productive management of time, efforts and energy, love and faith in God.<br><br>
+
+        Walking with Him, we are to uphold with dignity your good name, the Abuyog National High School, and to live the fullest in the service of mankind. Rest assured your efforts in nurturing us will not in vain.<br><br>
+
+        <strong>So help me God!!!</strong>
+      </blockquote>
     </div>
   </section>
 </main>
@@ -1598,7 +1824,7 @@ const students = {
   { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/taurus/Jhonril_F._Canuto.webp", name: "Jhonril F. Canuto" },
   { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/taurus/John_Mier_P._Tubesa.webp", name: "John Mier P. Tubesa" },
   { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/taurus/John_Ray_C._Manlangit.webp", name: "John Ray C. Manlangit" },
-  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/taurus/John_Rich_R._Lorino.webp", name: "John Rich R. Loriño" },
+  { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/taurus/John_Rich_R._Lorino.webp", name: "John Rich R. Loreño" },
   { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/taurus/Joshua_L._Luzon.webp", name: "Joshua L. Luzon" },
   { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/taurus/Jovanie_V._Lagumbay.webp", name: "Jovanie V. Lagumbay" },
   { img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/taurus/Jovanne_N._Nedera.webp", name: "Jovanne N. Nedera" },
@@ -2364,40 +2590,28 @@ const teacherAwards = {
 // ✅ Change here
 const speeches = [
   {
-    name: "Aira B. Delon",
-    status: "Class Valedictorian",
-    img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/aries/Aira_B._Delon.webp",
-    message: "Standing before you today is not just the culmination of years of hard work, but a testament to the power of unity..."
+    name: "ALEXANDER T. OLAZO DevEdD",
+    status: "PRINCIPAL IV",
+    img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/speakers/1766047990.png",
+    message: `&emsp; CONGRATULATIONS BATCH 2025! <br><br> &emsp; We are more than happy and proud of your success. The years of many sacrifices in high school has made you more persevering, resilient and open to new and challenging endeavors. The goals that you have aimed at is getting closer, yet there remains more obstacles to hurdle, more midnight candles to burn, and more temptations to resist. Move on with extra-caution, and fill yourselves with humility and kindness even in the midst of successes. Aspire to inspire people for them to emulate and radiate, and never falter in your faith to God who is the ultimate source of all goodness in life. Wherever success brings you, always remember that life’s sweetest essence is measured not in material things but by the love and services you have rendered to God, and Country. <br><br> &emsp; Be an advocate of peace, hope and unity. Strive to reach your star no matter what, but be gentle with yourself. God bless you always!`
   },
   {
-    name: "jhon Reyes",
-    status: "bobo",
-    img: "https://via.placeholder.com/150",
-    message: "Fellow students, what a journey it has been! From early morning classes to late-night study sessions..."
+    name: "MARIZA S. MAGAN EdD, CESO V",
+    status: "Schools division superintendent",
+    img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/speakers/mariza.webp",
+    message: `&emsp; Opportunities are not merely found; they are created through collaboration." The late Henry Sy Sr., a visionary entrepreneur, understood that success is not a solo journey—it is built on teamwork, shared vision, and collective effort. <br><br> &emsp; Today, as completers and graduates, you stand at the gateway of limitless possibilities. Your achievements are not just the result of individual perseverance but also of the relationships you’ve built, the ideas you’ve shared, and the unity you’ve fostered. <br><br> &emsp; Collaboration fuels progress, strengthens resilience, and transforms dreams into reality. In our careers, communities, and personal journeys, working together allows us to overcome challenges and unlock opportunities that once seemed out of reach. As you step forward, embrace the power of unity—because when we lift each other up, we create a future where success is not just personal but shared. <br><br> &emsp; This year’s theme, "Henerasyon ng Pagkakaisa: Kaagapay sa Bagong Pilipinas" (Generation of Unity: Partners for the New Philippines), reminds us that true progress comes from solidarity. You are not just completers or graduates—you are builders of a better tomorrow. You embody the strength and diversity of our nation, a generation ready to weave together the hopes and aspirations of our people into a brighter, more inclusive future. <br><br> &emsp; Let your education be your compass, guiding you toward a future where progress is shared, opportunities have no boundaries, and the spirit of Bayanihan remains the heart of our society. Be more than spectators—be partners in change, advocates for unity, and champions of transformation. <br><br> &emsp; To our dedicated administrators and teachers, thank you for your unwavering commitment and passion, which have shaped and guided every learner. <br><br> &emsp; To our amazing parents and guardians, your sacrifices and steadfast support have been the foundation of your children's success. <br><br> &emsp; And to our dear completers and graduates, congratulations! This is not just the end of a chapter, but it is the beginning of a journey filled with new opportunities. Keep striving for excellence, chase your dreams, and always remember that unity is the key to a brighter future. <br><br> &emsp;  Mabuhay kayong lahat, at mabuhay ang Pilipinas!`
   },
   {
-    name: "jushoa Reyes",
-    status: "Secretary",
-    img: "https://via.placeholder.com/150",
-    message: "Fellow students, what a journey it has been! From early morning classes to late-night study sessions..."
+    name: "EVELYN R. FETALVERO, CESO IV",
+    status: "Regional director",
+    img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/speakers/evelyn.jpg",
+    message: `&emsp; The youth of today are the leaders of tomorrow." – Nelson Mandela <br><br> &emsp; As we celebrate the achievements of our graduates today, these words by Nelson Mandela feel especially relevant. You, the young people of today, are the ones who will shape the future of our country. With the theme “Henerasyon ng Pagkakaisa: Kaagapay ng Bagong Pilipinas” (Generation of Unity: Partners for the New Philippines), it’s clear that this moment marks the start of a journey toward a brighter and better nation. <br><br> &emsp; You, the new generation, are in a unique position to become the foundation of progress. You have the power to create a society that values unity, innovation, and compassion. Our country stands at a turning point, and your collective strength will decide the future we build together. The way you unite, rise above divisions, and work together will shape the Philippines for years to come. <br><br> &emsp; As you move forward, remember that you are not limited by the mistakes of those who came before you. While the wisdom of experience is valuable, it is your energy, creativity, and passion that will drive our nation forward. You’re not simply inheriting the past—you have the power to change it. Strive to do better. Build the connections that will bring us together as a united people, determined to lift one another up. <br><br> &emsp; In the Bible, 1 Timothy 4:12 reminds us: "Don’t let anyone look down on you because you are young, but set an example for the believers in speech, in conduct, in love, in faith, and in purity." This verse calls upon you to lead with integrity, to set the standard for others through your actions, words, and the love you show one another. You are not limited by your age, but empowered by your passion and your capacity for change. <br><br> &emsp; This journey is not yours alone. To the parents and families, I offer my heartfelt congratulations and thanks. Your unwavering support has played a key role in helping these young minds reach this milestone. To the educators who have worked so hard to guide and shape the future, your efforts have created the foundation for today’s success. The partnership between family, school, and community has been vital in nurturing these future leaders. <br><br> &emsp; As we celebrate your accomplishments, I urge you to keep in mind that the road ahead won’t always be easy. Building the New Philippines will require resilience, vision, and commitment. But as graduates of this generation, you’ve already proven your strength in overcoming challenges. It’s now in your hands to build a society that’s more inclusive, just, and united. Together, you have the power to create a new and better Philippines. <br><br> &emsp; Go forward with the knowledge that you are the architects of tomorrow. The future is yours to shape—make it one of unity, progress, and prosperity for all. Congratulations, graduates. May you lead us into a bright new era for our country. <br><br> &emsp; Long live the Filipino spirit!`
   },
   {
-    name: "Aira B. Delon",
-    status: "Class Valedictorian",
-    img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/aries/Aira_B._Delon.webp",
-    message: "Standing before you today is not just the culmination of years of hard work, but a testament to the power of unity..."
-  },
-  {
-    name: "Dr. Maria Santos",
-    status: "Principal",
-    img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/libra/Frenz_Jay_O._Felizarta.webp",
-    message: "To the graduating class of 2025, you have shown remarkable resilience and dedication throughout your journey at ANHS-SHTTo the graduating class of 2025, you have shown remarkable resilience and dedication throughout your journey at ANHS-SHTTo the graduating class of 2025, you have shown remarkable resilience and dedication throughout your journey at ANHS-SHTTo the graduating class of 2025, you have shown remarkable resilience and dedication throughout your journey at ANHS-SHTTo the graduating class of 2025, you have shown remarkable resilience and dedication throughout your journey at ANHS-SHTTo the graduating class of 2025, you have shown remarkable resilience and dedication throughout your journey at ANHS-SHTTo the graduating class of 2025, you have shown remarkable resilience and dedication throughout your journey at ANHS-SHTTo the graduating class of 2025, you have shown remarkable resilience and dedication throughout your journey at ANHS-SHTTo the graduating class of 2025, you have shown remarkable resilience and dedication throughout your journey at ANHS-SHTTo the graduating class of 2025, you have shown remarkable resilience and dedication throughout your journey at ANHS-SHT..."
-  },
-  {
-    name: "Aira B. Delon",
-    status: "Class Valedictorian",
-    img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/aries/Aira_B._Delon.webp",
-    message: "Standing before you today is not just the culmination of years of hard work, but a testament to the power of unity..."
+    name: "JUAN EDGARDO M. ANGARA",
+    status: "Deped secretary",
+    img: "https://cached-file-link.jhondumanhog.workers.dev/files/anhs-sh-2025/speakers/juan_edgardo.webp",
+    message: "&emsp; As we close School Year 2024-2025, I want to extend my heartfelt gratitude to our learners, teachers, school staff, parents, and partners who have been part of this shared journey. This year’s theme, Henerasyon ng Pagkakaisa: Kaagapay ng Bagong Pilipinas, underscores our collective effort in strengthening our education system to meet the demands of a rapidly evolving world. <br><br> &emsp; I have seen this commitment firsthand in my visits to schools across the country. I have met learners who wake up before dawn to walk kilometers to learn, teachers who go beyond their duty, and parents who sacrifice to provide their children with better opportunities. These realities push us to craft enduring reforms.<br><br> &emsp; Through the 5-Point Reform Agenda, we have taken concrete steps to address classroom shortage, strengthen our workforce by filling critical personnel, accelerate digitalization, enrich career pathways, and implement policies that lead to lasting systemic improvements. We opened the doors of our offices and schools to our partners in the private sector to make all of these happen. <br><br> &emsp; Beyond solving existing challenges, we are also spearheading the groundwork for a future-ready education system. Our goal is not just about an uptick in numbers. Our goal is for every Filipino child, no matter where they are, to have the opportunity for learning, growth, and success. <br><br> &emsp; To our teachers and school staff, your dedication is the foundation of this transformation. Your hope and hard work are the reason we are making progress. To parents and guardians, your support at home shapes the aspirations of our learners and inspires them to strive for more. <br><br> &emsp; To our students, you are the heart of everything we do. Your dreams fuel our drive to make education better and more inclusive. <br><br> &emsp; And to our graduates and completers of SY 2024-2025, congratulations! You are the generation that binds all of us together. As you step into the next chapter of your lives, bring with you the values of perseverance, resourcefulness, and compassion that define us as Filipinos. <br><br> &emsp; As we move forward, DepEd, under the administration of President Ferdinand R. Marcos Jr., remains committed to raising the quality of education, strengthening governance, and ensuring that our youth reach their full potential. With an unyielding commitment to equity, we will build a stronger, more inclusive education system for generations to come. <br><br> &emsp; Maraming salamat at mabuhay ang edukasyon ng Bagong Pilipinas!"
   }
 ];
 
@@ -2415,24 +2629,59 @@ const memories = [
 
 // ✅ Change here
 const graduationLyrics = {
-  title: "We Are",
-  lyrics: `We walked these halls with dreams so wide,
-Through every storm, we stood with pride.
-From morning bells to sunset cheers,
-We faced our hopes, we faced our fears.
-Now caps fly high, hearts beat as one,
-Our chapter ends—but not our run.
+  title: "hello",
+  lyrics: `We’ve come so far, now the day is here,
+Memories made, and the world’s so clear.
+Through the highs and lows, we’ve found our way,
+Now we’re standing at the edge of a brand-new day.
 
-ANHS-SH, you shaped our way,
-We’ll carry you in all we say.
-So here’s to friends, to teachers true,
-To every laugh, to all we knew.
-Though paths may part, our bond stays strong—
-Graduates of 2025, we all belong.
+We laughed, we cried, we grew so strong.
+We’re ready now where we belong.
+The future’s calling we’ll answer true,
+With hearts so bold and dreams that flew.
 
-From morning bells to sunset cheers,
-We faced our hopes, we faced our fears.
-Now caps fly high, hearts beat as one,`
+Here’s the moments
+That shaped who we are,
+To the road ahead, we’ll chase every star.
+We’re more than ready,
+The world’s in our hands,
+A new beginning, it’s time to stand.
+We’ll write our story, make it shine,
+Together forever, across all time.
+
+Through the doors we walk, our paths untold,
+With the courage to be brave and the strength to hold.
+We’ll face what comes, we’ll stand so tall,
+No matter where life leads, we’ll give it our all.
+
+We laughed, we cried, we grew so strong.
+We’re ready now where we belong.
+The future’s calling we’ll answer true,
+With hearts so bold and dreams that flew.
+
+Here’s the moments
+That shaped who we are,
+To the road ahead, we’ll chase every star.
+We’re more than ready,
+The world’s in our hands,
+A new beginning, it’s time to stand.
+We’ll write our story, make it shine,
+Together forever, across all time.
+
+This is our time, we’ll rise and fly,
+With every dream we’ll touch the sky.
+We’ve learned, we’ve loved, we’ve grown,
+Now we know we’re never alone.
+
+Here’s the moments
+That shaped who we are,
+To the road ahead, we’ll chase every star.
+We’re more than ready,
+The world’s in our hands,
+A new beginning, it’s time to stand.
+We’ll write our story, make it shine,
+Together forever, across all time.
+`
 };
 
 function normalize(str) {
@@ -3113,7 +3362,7 @@ function renderOverview() {
           </div>
         </div>
         <p style="font-style:italic;line-height:1.7;color:#424242;border-left:3px solid ${borderColor};padding-left:1rem;margin:0.5rem 0;">
-          “${s.message.substring(0, 150)}${s.message.length > 150 ? '…' : ''}”
+          ${s.message.substring(0, 150)}${s.message.length > 150 ? '…' : ''}
         </p>
         <button class="view-full-btn" style="margin-top:0.75rem;width:100%;"
                 onclick="showSection('speeches'); setTimeout(() => document.getElementById('speeches').scrollIntoView({behavior:'smooth'}), 100);">
@@ -3177,7 +3426,7 @@ function renderOverview() {
     sectionLinks.innerHTML = `
       <h4 style="color: var(--primary); margin-bottom: 0.75rem;">📚 Browse All Sections</h4>
       <div style="display:flex;flex-wrap:wrap;gap:0.5rem;justify-content:center;">
-        // ✅ Change here if you change the sections.html file name
+        <!-- // ✅ Change here if you change the sections.html file name -->
         ${sections.map(sec => `
           <a href="sections.html?section=${sec}" target="_blank"
              style="padding:0.4rem 0.8rem;background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:20px;text-decoration:none;color:var(--primary-dark);font-weight:600;transition:var(--transition);"
@@ -3209,25 +3458,28 @@ function renderTeachers() {
     div.appendChild(card);
   });
 }
+
+function truncateText(text, maxLength = 450) {
+  if (text.length <= maxLength) return { truncated: text, isTruncated: false };
+  const substr = text.substr(0, maxLength);
+  const lastSpace = substr.lastIndexOf(' ');
+  const cut = lastSpace > maxLength - 50 ? lastSpace : maxLength;
+  return {
+    truncated: substr.substr(0, cut) + '…',
+    isTruncated: true
+  };
+}
+
 function renderSpeeches() {
   const div = document.getElementById('all-speeches');
   div.innerHTML = '';
-  // ✅ Change here for defferent speech card color
+
   const colorSchemes = [
-    { bg: 'linear-gradient(135deg, #f0faff, #f5f9ff)', border: '#bbdefb', text: '#1565c0', quote: '#64b5f6' },
-    { bg: 'linear-gradient(135deg, #f0faff, #f5f9ff)', border: '#bbdefb', text: '#1565c0', quote: '#64b5f6' },
-    { bg: 'linear-gradient(135deg, #f0faff, #f5f9ff)', border: '#bbdefb', text: '#1565c0', quote: '#64b5f6' },
-    { bg: 'linear-gradient(135deg, #f0faff, #f5f9ff)', border: '#bbdefb', text: '#1565c0', quote: '#64b5f6' },
-    { bg: 'linear-gradient(135deg, #f0faff, #f5f9ff)', border: '#bbdefb', text: '#1565c0', quote: '#64b5f6' },
-    { bg: 'linear-gradient(135deg, #f0faff, #f5f9ff)', border: '#bbdefb', text: '#1565c0', quote: '#64b5f6' },
-    { bg: 'linear-gradient(135deg, #f0faff, #f5f9ff)', border: '#bbdefb', text: '#1565c0', quote: '#64b5f6' },
-    { bg: 'linear-gradient(135deg, #f0faff, #f5f9ff)', border: '#bbdefb', text: '#1565c0', quote: '#64b5f6' },
-    { bg: 'linear-gradient(135deg, #f0faff, #f5f9ff)', border: '#bbdefb', text: '#1565c0', quote: '#64b5f6' },
-    { bg: 'linear-gradient(135deg, #f0faff, #f5f9ff)', border: '#bbdefb', text: '#1565c0', quote: '#64b5f6' },
     { bg: 'linear-gradient(135deg, #f0faff, #f5f9ff)', border: '#bbdefb', text: '#1565c0', quote: '#64b5f6' }
   ];
+
   speeches.forEach((s, idx) => {
-    const scheme = colorSchemes[idx % colorSchemes.length];
+    const scheme = colorSchemes[0]; // Use one consistent theme for now
     const card = document.createElement('div');
     card.className = 'speech-card';
     card.style.background = scheme.bg;
@@ -3236,13 +3488,15 @@ function renderSpeeches() {
     card.style.padding = '1.5rem';
     card.style.boxShadow = 'var(--shadow-sm)';
     card.style.transition = 'var(--transition)';
+
+    // Determine speech label
     let label = "Speech";
-    // ✅ Change here for speech section
-    if (s.status.includes('Principal')) label = "Principal's Address";
-    else if (s.status.includes('Valedictorian')) label = "Valedictorian Speeches";
-    else if (s.status.includes('Secretary')) label = "Secretary's Address";
-    else if (s.status.includes('Top')) label = "Tops Student's Address";
-    //---------------------------------------------------
+    if (s.status?.toLowerCase().includes('principal')) label = "Principal's Address";
+    else if (s.status?.toLowerCase().includes('valedictorian')) label = "Valedictorian Speech";
+    else if (s.status?.toLowerCase().includes('secretary')) label = "Secretary's Address";
+    else if (s.status?.toLowerCase().includes('top')) label = "Top Student's Address";
+
+    // Avatar
     const avatarWrapper = document.createElement('div');
     avatarWrapper.style.flex = '0 0 90px';
     avatarWrapper.style.cursor = 'pointer';
@@ -3260,39 +3514,99 @@ function renderSpeeches() {
     avatarImg.style.border = `3px solid ${scheme.quote}`;
     avatarImg.onerror = () => { avatarImg.src = 'https://via.placeholder.com/150/e0e0e0/999999?text=?'; };
     avatarWrapper.appendChild(avatarImg);
+
+    // Metadata
     const metaDiv = document.createElement('div');
     metaDiv.style.flex = '1';
     metaDiv.style.textAlign = 'left';
     metaDiv.innerHTML = `
       <h3 style="margin:0;color:${scheme.text};font-weight:800;">${s.name}</h3>
-      <p style="margin:0.25rem 0;color:#5d4037;font-weight:600;">${s.status}</p>
+      <p style="margin:0.25rem 0;color:#5d4037;font-weight:600;">${s.status || '—'}</p>
       <div style="display:flex;gap:0.25rem;margin-top:0.3rem;align-items:center;">
         <i class="fas fa-quote-left" style="color:${scheme.quote};font-size:0.9rem;"></i>
         <span style="color:#9e9e9e;font-size:0.85rem;">${label}</span>
       </div>
     `;
+
+    // Message + Read More toggle
+    const messageContainer = document.createElement('div');
+    messageContainer.style.margin = '1rem 0';
     const messageEl = document.createElement('p');
+    messageEl.classList.add('message');
     messageEl.style.fontStyle = 'italic';
     messageEl.style.lineHeight = '1.7';
     messageEl.style.color = '#424242';
     messageEl.style.borderLeft = `3px solid ${scheme.quote}`;
     messageEl.style.paddingLeft = '1rem';
-    messageEl.style.margin = '1rem 0';
-    messageEl.textContent = `“${s.message}”`;
+
+    const { truncated, isTruncated } = truncateText(s.message, 450);
+    messageEl.innerHTML = `${truncated}`;
+    messageContainer.appendChild(messageEl);
+
+    let isExpanded = false;
+    const toggleBtn = document.createElement('button');
+    toggleBtn.type = 'button';
+    toggleBtn.style.display = 'none'; // hidden by default; shown only if truncated & on small screens
+    toggleBtn.style.background = 'none';
+    toggleBtn.style.border = 'none';
+    toggleBtn.style.color = 'var(--primary)';
+    toggleBtn.style.fontSize = '0.95rem';
+    toggleBtn.style.fontWeight = '600';
+    toggleBtn.style.cursor = 'pointer';
+    toggleBtn.style.marginTop = '0.5rem';
+    toggleBtn.style.padding = '0.25rem 0';
+    toggleBtn.style.textAlign = 'left';
+    toggleBtn.innerHTML = '<i class="fas fa-angle-down"></i> Read More';
+    toggleBtn.setAttribute('aria-expanded', 'false');
+
+    toggleBtn.onclick = (e) => {
+      e.stopPropagation(); e.preventDefault();
+      isExpanded = !isExpanded;
+      toggleBtn.setAttribute('aria-expanded', isExpanded);
+      if (isExpanded) {
+        messageEl.innerHTML = `${s.message}`;
+        toggleBtn.innerHTML = '<i class="fas fa-angle-up"></i> Read Less';
+      } else {
+        messageEl.innerHTML = `${truncated}`;
+        toggleBtn.innerHTML = '<i class="fas fa-angle-down"></i> Read More';
+      }
+    };
+
+    if (isTruncated) {
+      messageContainer.appendChild(toggleBtn);
+      // Show toggle only on smaller screens (responsive logic)
+      const checkToggleVisibility = () => {
+        if (window.innerWidth <= 768) {
+          toggleBtn.style.display = 'inline-flex';
+          messageEl.style.marginBottom = '0.25rem';
+        } else {
+          toggleBtn.style.display = 'none';
+          messageEl.innerHTML = `${s.message}`; // full text on desktop
+        }
+      };
+      checkToggleVisibility();
+      window.addEventListener('resize', checkToggleVisibility);
+    }
+
+    // Assemble
     const headerDiv = document.createElement('div');
     headerDiv.style.display = 'flex';
     headerDiv.style.gap = '1.25rem';
-    headerDiv.style.alignItems = 'center';
+    headerDiv.style.alignItems = 'flex-start';
     headerDiv.style.flexWrap = 'wrap';
     headerDiv.appendChild(avatarWrapper);
     headerDiv.appendChild(metaDiv);
+
     card.appendChild(headerDiv);
-    card.appendChild(messageEl);
+    card.appendChild(messageContainer);
+
     card.onmouseenter = () => card.style.transform = 'translateY(-3px)';
     card.onmouseleave = () => card.style.transform = '';
+
     div.appendChild(card);
   });
 }
+
 function renderMemories() {
   const div = document.getElementById('all-memories');
   div.innerHTML = '';
@@ -3494,7 +3808,7 @@ shareNativeBtn.addEventListener('click', async () => {
   }
 });
 
-
+/*
 //-----------------------------------------------------------------------------------------------------
 // 🔒 Disable right-click (context menu)
 document.addEventListener('contextmenu', (e) => {
@@ -3538,7 +3852,7 @@ document.addEventListener('keydown', (e) => {
   //   return false;
   // }
 });
-
+*/
 </script>
 </body>
 </html>
